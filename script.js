@@ -77,7 +77,7 @@
       function loadDefaultAudio() {
         // Set the loading message
         document.getElementById('loadingMessage').style.display = 'block';
-        wavesurfer.load('a538e993-0faa-488d-b820-ac0a2f9e7815_04-03-25_19-4.wav');
+        wavesurfer.load('example.mp3');
   
         // Listen for the waveform's ready event and hide the loading message
         wavesurfer.on('ready', function() {
