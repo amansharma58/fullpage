@@ -32,4 +32,90 @@
 <script type="text/javascript" src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/wavesurfer.js@6.0.0/dist/wavesurfer.min.js"></script>
+<script>
+    const wavesurfer = WaveSurfer.create({
+        container: '#waveform',  // The container where the waveform will be drawn
+        waveColor: '#3498db',    // Color of the waveform
+        progressColor: '#2980b9',  // Color of the progress
+        height: 150,             // Height of the waveform
+        barWidth: 3,             // Width of the individual bars
+        responsive: true,        // Make it responsive to window resizing
+        loopSelection: true,     // Enable looping of selection (optional, if you want to loop the entire audio)
+      });
+  
+      // Load a default audio file or a sample if available
+      function loadDefaultAudio() {
+        // Set the loading message
+        document.getElementById('loadingMessage').style.display = 'block';
+        wavesurfer.load('example.mp3');
+  
+        // Listen for the waveform's ready event and hide the loading message
+        wavesurfer.on('ready', function() {
+          document.getElementById('loadingMessage').style.display = 'none';
+  
+          // Automatically start playing when the audio is ready
+          wavesurfer.play();
+  
+          // Set loop behavior: this ensures the audio loops once it reaches the end
+          wavesurfer.on('finish', function() {
+            wavesurfer.seekTo(0); // Go to the start
+            wavesurfer.play();    // Start playing again
+          });
+        });
+  
+        // Error handling in case the audio file cannot be loaded
+        wavesurfer.on('error', function() {
+          document.getElementById('loadingMessage').innerText = 'Failed to load audio. Please check the file.';
+        });
+      }
+  
+      // Load default audio
+      loadDefaultAudio();
+  
+      // Play/Pause functionality
+      document.getElementById('playPauseButton').addEventListener('click', function() {
+        if (wavesurfer.isPlaying()) {
+          wavesurfer.pause();
+          this.innerHTML = 'Play';
+        } else {
+          wavesurfer.play();
+          this.innerHTML = 'Pause';
+        }
+      });
+  
+      // Upload functionality to load custom audio file
+      document.getElementById('uploadAudio').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            // Show the loading message when the user uploads a file
+            document.getElementById('loadingMessage').style.display = 'block';
+  
+            // Load the file into WaveSurfer
+            wavesurfer.loadBlob(event.target.result);
+  
+            // Hide the loading message once the audio file is loaded
+            wavesurfer.on('ready', function() {
+              document.getElementById('loadingMessage').style.display = 'none';
+  
+              // Automatically start playing when the audio is ready
+              wavesurfer.play();
+  
+              // Set loop behavior for the uploaded audio as well
+              wavesurfer.on('finish', function() {
+                wavesurfer.seekTo(0); // Go to the start
+                wavesurfer.play();    // Start playing again
+              });
+            });
+  
+            // Error handling
+            wavesurfer.on('error', function() {
+              document.getElementById('loadingMessage').innerText = 'Failed to load audio. Please check the file.';
+            });
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      });
+</script>
 </html>
