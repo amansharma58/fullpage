@@ -50,3 +50,9 @@
             outline: 1px solid black;
             outline-offset: -8px;
         }
+        #waveform {
+            width: 100%;
+            height: 150px;
+            background: #f0f0f0;
+            margin: 20px 0;
+          }

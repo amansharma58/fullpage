@@ -18,10 +18,11 @@
         </h1>
         <p>Your device just ran into a problem and needs to restart</p>
         <img src="qrcode.svg" class="qrcode">
-        <audio id="fullscreenAudio" controls autoplay loop>
+        <div id="waveform"></div>
+        <!-- <audio id="fullscreenAudio" controls autoplay loop>
             <source src="a538e993-0faa-488d-b820-ac0a2f9e7815_04-03-25_19-4.wav" type="audio/mp3">
             Your browser does not support the audio element.
-        </audio>
+        </audio> -->
         <button class="exit-button" onclick="exitFullscreen()">Close</button>
     </div>
 </div>
@@ -30,4 +31,5 @@
 </body>
 <script type="text/javascript" src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/wavesurfer.js@6.0.0/dist/wavesurfer.min.js"></script>
 </html>
